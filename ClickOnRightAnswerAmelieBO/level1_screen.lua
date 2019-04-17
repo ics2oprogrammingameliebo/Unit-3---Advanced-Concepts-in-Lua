@@ -2,8 +2,8 @@
 --
 -- level1_screen.lua
 -- Created by: Gil Robern
--- Modified by: Your Name
--- Date: Month Day, Year
+-- Modified by: Amelie Bender-Olivas
+-- Date: April 16, 2019
 -- Description: This is the level 1 screen of the game.
 -----------------------------------------------------------------------------------------
 
@@ -293,9 +293,14 @@ function scene:create( event )
     correct:setTextColor(100/255, 47/255, 210/255)
     correct.isVisible = false
 
+        -- create the text object that will say Correct, set the colour and then hide it
+    correct = display.newText("Incorrect", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
+    correct:setTextColor(242/255, 19/255, 19/255)
+    correct.isVisible = false
+
     -- create the text object that will say Out of Time, set the colour and then hide it
     outOfTimeText = display.newText("Out of Time!", display.contentWidth*2/5, display.contentHeight*1/3, nil, 50)
-    outOfTimeText:setTextColor(100/255, 47/255, 210/255)
+    outOfTimeText:setTextColor(255/255, 0/255, 0/255)
     outOfTimeText.isVisible = false
 
     -- display the level text of time text and set the colour
