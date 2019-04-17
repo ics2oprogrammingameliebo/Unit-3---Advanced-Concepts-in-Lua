@@ -176,6 +176,7 @@ local function RestartScene()
         DetermineAnswers()
         DisplayAnswers()
     end
+    
     -- if they have 0 lives, go to the You Lose screen
     if (numberCorrect == 3) then
         composer.gotoScene("you_win")
