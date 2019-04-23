@@ -82,7 +82,11 @@ local alreadyClickedAnswer = false
 -----------------------------------------------------------------------------------------
 -- SOUND
 -----------------------------------------------------------------------------------------
+local correctSound = audio.loadSound( "Sounds/CorrectAnswer.mp3")
+local correctSoundChannel
 
+local incorrectSound = audio.loadSound( "Sounds/WrongBuzzer.mp3")
+local incorrectSoundChannel
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
