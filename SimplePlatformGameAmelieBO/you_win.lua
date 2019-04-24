@@ -17,7 +17,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "you_lose"
+sceneName = "you_win"
 
 -----------------------------------------------------------------------------------------
 
@@ -34,12 +34,10 @@ local bkg
 -----------------------------------------------------------------------------------------
 -- SOUNDS
 -----------------------------------------------------------------------------------------
-local LoseSound = audio.loadSound( "Sounds/YouLose.mp3")
-local LoseSoundChannel
+local WinSound = audio.loadSound( "Sounds/YouWin.mp3")
+local WinSoundChannel
 
-LoseSoundChannel = audio.play(LoseSound)
-
-
+WinSoundChannel = audio.play(WinSound)
 
 ----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
