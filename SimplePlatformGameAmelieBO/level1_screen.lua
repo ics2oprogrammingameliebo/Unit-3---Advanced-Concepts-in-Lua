@@ -29,7 +29,7 @@ local scene = composer.newScene( sceneName )
 
 
 -----------------------------------------------------------------------------------------
--- LOCAL VARIABLES
+-- SOUNDS
 -----------------------------------------------------------------------------------------
 
 local popSound = audio.loadSound("Sounds/Pop.mp3")
@@ -183,6 +183,10 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
+local function YouWinTransition()
+    composer.gotoScene( "you_win" )
+end
+
 local function onCollision( self, event )
     -- for testing purposes
     --print( event.target )        --the first object in the collision
@@ -250,6 +254,7 @@ local function onCollision( self, event )
             --check to see if the user has answered 5 questions
             if (questionsAnswered == 3) then
                 -- after getting 3 questions right, go to the you win screen
+                timer.performWithDelay(200, YouWinTransition)
             end
         end        
 
