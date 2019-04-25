@@ -32,7 +32,7 @@ local scene = composer.newScene( sceneName ) -- This function doesn't accept a s
 local WinSound = audio.loadSound( "Sounds/Correct.wav" )
 local WinSoundChannel
 
-    WinSoundchannel = audio.play(animalSound)
+    WinSoundchannel = audio.play(WinSound)
 end
 -----------------------------------------------------------------------------------------
 -- DISPLAY OBJECTS
