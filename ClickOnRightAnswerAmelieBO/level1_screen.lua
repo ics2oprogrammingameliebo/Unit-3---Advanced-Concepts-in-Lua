@@ -251,7 +251,7 @@ local function TouchListenerWrongAnswer2(touch)
                 -- call RestartScene after 1 second
                 timer.performWithDelay( 1000, RestartScene )            
             end        
-    
+     
         end
 end
 
