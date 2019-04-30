@@ -10,6 +10,9 @@
 -- HIDE THE STATUS BAR
 
 -----------------------------------------------------------------------------------------
+-- Hiding status bar
+display.setStatusBar( display.HiddenStatusBar)
+
 
 -- Use composer library
 local composer = require( "composer" )
