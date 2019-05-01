@@ -35,6 +35,8 @@ local scene = composer.newScene( sceneName )
 local bkg_image
 local playButton
 local creditsButton
+local instructionsButton
+
 
 -----------------------------------------------------------------------------------------
 -- SOUNDS
@@ -152,8 +154,8 @@ function scene:create( event )
             -- When the button is released, call the Instructions transition function
             onRelease = InstructionsTransition
         } ) 
-    
-    -----------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------
 
     -- Associating button widgets with this scene
     sceneGroup:insert( playButton )
@@ -161,7 +163,6 @@ function scene:create( event )
     sceneGroup:insert( instructionsButton )
 
 end -- function scene:create( event )   
-
 
 
 -----------------------------------------------------------------------------------------
@@ -188,8 +189,7 @@ function scene:show( event )
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then  
          -- start the main menu screen music
-        bkgSoundChannel = audio.play(bkgSound )    
-        
+        bkgSoundChannel = audio.play(bkgSound )  
     end
 
 end -- function scene:show( event )
@@ -216,10 +216,10 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- stop the rocket sound channel for this screen
+        -- stop the bkg sound channel for this screen
         audio.stop(bkgSoundChannel)
 
-        -- stop the bark sound channel for this screen
+        -- stop the bkg sound channel for this screen
         audio.stop(bkgSoundChannel)
 
     end
