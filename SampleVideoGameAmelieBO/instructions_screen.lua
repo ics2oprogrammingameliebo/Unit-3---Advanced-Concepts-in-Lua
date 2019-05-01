@@ -30,12 +30,19 @@ local bkg_image
 local backButton
 
 -----------------------------------------------------------------------------------------
+-- SOUNDS
+-----------------------------------------------------------------------------------------
+-- create sound variables
+local bkgSound = audio.loadSound ( "Sounds/bkgMusic.mp3" ) -- Setting variable to mp3 file
+local bkgSoundChannel
+
+-----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
 -- Creating Transitioning Function back to main menu
 local function BackTransition( )
-    composer.gotoScene( "main_menu", {effect = "fromLeft", time = 500})
+    composer.gotoScene( "main_menu", {effect = "fade", time = 500})
 end
 
 
@@ -120,6 +127,8 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+        -- start the instruction screen music
+        bkgSoundChannel = audio.play(bkgSound )   
     end
 
 end -- function scene:show( event )
@@ -147,6 +156,12 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        -- Called immediately after scene goes off screen.
+        -- stop the rocket sound channel for this screen
+        audio.stop(bkgSoundChannel)
+
+        -- stop the bark sound channel for this screen
+        audio.stop(bkgSoundChannel)
     end
 
 end --function scene:hide( event )

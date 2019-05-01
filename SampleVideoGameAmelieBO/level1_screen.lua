@@ -30,6 +30,23 @@ local scene = composer.newScene( sceneName )
 
 -- The local variables for this scene
 local bkg_image
+local backButton
+
+-----------------------------------------------------------------------------------------
+-- SOUNDS
+-----------------------------------------------------------------------------------------
+-- create sound variables
+local bkgSound = audio.loadSound ( "Sounds/bkgMusic.mp3" ) -- Setting variable to mp3 file
+local bkgSoundChannel
+
+-----------------------------------------------------------------------------------------
+-- LOCAL FUNCTIONS
+-----------------------------------------------------------------------------------------
+
+-- Creating Transitioning Function back to main menu
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "fade", time = 500})
+end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -50,12 +67,42 @@ function scene:create( event )
     bkg_image.width = display.contentWidth
     bkg_image.height = display.contentHeight
 
+        -- Insert background image into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( bkg_image ) 
+
+
     -- Send the background image to the back layer so all other objects can be on top
     bkg_image:toBack()
 
-        -- Insert background image into the scene group in order to ONLY be associated with this scene
-    sceneGroup:insert( bkg_image )    
+    -----------------------------------------------------------------------------------------
+    -- BUTTON WIDGETS
+    -----------------------------------------------------------------------------------------
 
+    -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*1/8,
+        y = display.contentHeight*15/16,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/Back Button Unpressed.png",
+        overFile = "Images/Back Button Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )   
+
+    -----------------------------------------------------------------------------------------
+
+    -- Associating Buttons with this scene
+    sceneGroup:insert( backButton )
+    
 end --function scene:create( event )
 
 -----------------------------------------------------------------------------------------
@@ -65,6 +112,9 @@ function scene:show( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+
+    -----------------------------------------------------------------------------------------
+
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
@@ -79,6 +129,8 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+        -- start the main menu screen music
+        bkgSoundChannel = audio.play(bkgSound )  
 
     end
 
@@ -104,6 +156,12 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        -- stop the rocket sound channel for this screen
+        audio.stop(bkgSoundChannel)
+
+        -- stop the bark sound channel for this screen
+        audio.stop(bkgSoundChannel)
+
     end
 
 end --function scene:hide( event )

@@ -43,29 +43,27 @@ local creditsButton
 local bkgSound = audio.loadSound ( "Sounds/bkgMusic.mp3" ) -- Setting variable to mp3 file
 local bkgSoundChannel
 
-bkgSoundChannel = audio.play(bkgSound)
-
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
 -- Creating Transition Function to Credits Page
 local function CreditsTransition( )       
-    composer.gotoScene( "credits_screen", {effect = "fromRight", time = 500})
+    composer.gotoScene( "credits_screen", {effect = "fade", time = 500})
 end 
 
 -----------------------------------------------------------------------------------------
 
 -- Creating Transition to Level1 Screen
 local function Level1ScreenTransition( )
-    composer.gotoScene( "level1_screen", {effect = "fromTop", time = 1000})
+    composer.gotoScene( "level1_screen", {effect = "fade", time = 1000})
 end    
 
 -----------------------------------------------------------------------------------------
 
 -- Creating Transition Function to Credits Page
 local function InstructionsTransition( )       
-    composer.gotoScene( "instructions_screen", {effect = "fromLeft", time = 500})
+    composer.gotoScene( "instructions_screen", {effect = "fade", time = 500})
 end 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -188,9 +186,10 @@ function scene:show( event )
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
-    elseif ( phase == "did" ) then       
+    elseif ( phase == "did" ) then  
+         -- start the main menu screen music
+        bkgSoundChannel = audio.play(bkgSound )    
         
-
     end
 
 end -- function scene:show( event )
@@ -217,7 +216,12 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- Called immediately after scene goes off screen.
+        -- stop the rocket sound channel for this screen
+        audio.stop(bkgSoundChannel)
+
+        -- stop the bark sound channel for this screen
+        audio.stop(bkgSoundChannel)
+
     end
 
 end -- function scene:hide( event )

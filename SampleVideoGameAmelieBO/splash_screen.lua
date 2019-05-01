@@ -161,7 +161,7 @@ function scene:show( event )
         Runtime:addEventListener("enterFrame", FadeIn)
 
         -- Go to the main menu screen after the given time.
-        timer.performWithDelay ( 3000, gotoMainMenu)          
+        timer.performWithDelay ( 2200, gotoMainMenu)          
         
     end
 
