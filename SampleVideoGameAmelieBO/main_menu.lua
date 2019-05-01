@@ -108,7 +108,7 @@ function scene:create( event )
 
 
             -- Insert the images here
-            defaultFile = "Images/Start Button Unpressed.png",
+            defaultFile = "Images/PlayButtonUnpressedAbishaJ@2x.png",
             overFile = "Images/PlayButtonPressedAbishaJ@2x.png",
 
             -- When the button is released, call the Level1 screen transition function
