@@ -36,7 +36,7 @@ local backButton
 -- SOUNDS
 -----------------------------------------------------------------------------------------
 -- create sound variables
-local bkgSound = audio.loadSound ( "Sounds/bkgMusic.mp3" ) -- Setting variable to mp3 file
+local bkgSound = audio.loadSound ( "Sounds/bkgLevel1.mp3" ) -- Setting variable to mp3 file
 local bkgSoundChannel
 
 -----------------------------------------------------------------------------------------
@@ -132,7 +132,7 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
         -- start the main menu screen music
-        bkgSoundChannel = audio.play(bkgSound )  
+        bkgSoundChannel= audio.play( bkgSound, { channel=2, loops=-1} )
 
     end
 

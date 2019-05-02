@@ -33,7 +33,7 @@ local backButton
 -- SOUNDS
 -----------------------------------------------------------------------------------------
 -- create sound variables
-local bkgSound = audio.loadSound ( "Sounds/bkgMusic.mp3" ) -- Setting variable to mp3 file
+local bkgSound = audio.loadSound ( "Sounds/instructions.mp3" ) -- Setting variable to mp3 file
 local bkgSoundChannel
 
 -----------------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg_image = display.newImageRect("Images/InstructionsScreenYourName@2x.png", display.contentWidth, display.contentHeight)
+    bkg_image = display.newImageRect("Images/InstructionsScreenAmelie@2x.png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -130,7 +130,7 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
         -- start the instruction screen music
-        bkgSoundChannel = audio.play(bkgSound )   
+        bkgSoundChannel= audio.play( bkgSound, { channel=3, loops=-1} )  
     end
 
 end -- function scene:show( event )

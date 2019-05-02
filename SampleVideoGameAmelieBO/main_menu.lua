@@ -137,7 +137,7 @@ function scene:create( event )
         } ) 
     -------------------------------------------------------------------------------
 
-    -- Creating Credits Button
+    -- Creating Instructions Button
     instructionsButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
@@ -154,6 +154,9 @@ function scene:create( event )
             -- When the button is released, call the Instructions transition function
             onRelease = InstructionsTransition
         } ) 
+
+    -------------------------------------------------------------------------------
+
 
 -----------------------------------------------------------------------------------------
 
@@ -189,7 +192,7 @@ function scene:show( event )
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then  
          -- start the main menu screen music
-        bkgSoundChannel = audio.play(bkgSound )  
+         bkgSoundChannel= audio.play( bkgSound, { channel=1, loops=-1} )
     end
 
 end -- function scene:show( event )
@@ -201,6 +204,7 @@ function scene:hide( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+
 
     -----------------------------------------------------------------------------------------
 
@@ -216,10 +220,7 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- stop the bkg sound channel for this screen
-        audio.stop(bkgSoundChannel)
-
-        -- stop the bkg sound channel for this screen
+                -- stop the bkg sound channel for this screen
         audio.stop(bkgSoundChannel)
 
     end
