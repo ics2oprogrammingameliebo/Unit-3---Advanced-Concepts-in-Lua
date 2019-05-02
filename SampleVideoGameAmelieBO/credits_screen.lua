@@ -161,9 +161,6 @@ function scene:hide( event )
 
         -- stop the rocket sound channel for this screen
         audio.stop(bkgSoundChannel)
-
-        -- stop the bark sound channel for this screen
-        audio.stop(bkgSoundChannel)
     end
 
 end --function scene:hide( event )
