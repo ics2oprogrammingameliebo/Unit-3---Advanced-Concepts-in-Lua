@@ -29,6 +29,11 @@ sceneName = "main_menu"
 local scene = composer.newScene( sceneName )
 
 -----------------------------------------------------------------------------------------
+-- GLOBAL VARIABLES
+-----------------------------------------------------------------------------------------
+SoundOn = true
+
+-----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
@@ -36,6 +41,8 @@ local bkg_image
 local playButton
 local creditsButton
 local instructionsButton
+local muteButton
+local unmuteButtton
 
 
 -----------------------------------------------------------------------------------------
@@ -67,6 +74,21 @@ end
 local function InstructionsTransition( )       
     composer.gotoScene( "instructions_screen", {effect = "fade", time = 500})
 end 
+-----------------------------------------------------------------------------------------
+    local function Mute(touch)
+     if (touch.phase == "ended") then
+     -- pause the sound
+     audio.pause(bkgSound)
+     -- set the boolean variable to be false (sound is now muted)
+     soundOn = false
+     -- hide the mute
+     muteButton.isVisible = false
+     -- make the unmute button visible
+     unmuteButton.isVisible = true
+ end
+end
+
+
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -156,7 +178,16 @@ function scene:create( event )
         } ) 
 
     -------------------------------------------------------------------------------
+-- Object creation for mute button
+muteButton = display.newImageRect("Images/unmuteButtonPressedAmelieBo@2x .png", 100, 100)
+muteButton.x = display.contentWidth*1/10
+muteButton.y = display.contentHeight*9/10 
+muteButton.isVisible = true
 
+unmuteButton = display.newImageRect("Images/muteButtonUnpressedAmelieBo@2x .png", 100, 100)
+unmuteButton.x = display.contentWidth*1/10
+unmuteButton.y = display.contentHeight*9/10
+unmuteButton.isVisible = true
 
 -----------------------------------------------------------------------------------------
 
@@ -191,8 +222,9 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then  
-         -- start the main menu screen music
-         bkgSoundChannel= audio.play( bkgSound, { channel=1, loops=-1} )
+        -- start the main menu screen music
+        bkgSoundChannel = audio.play( bkgSound, { channel=1, loops=-1} )
+        muteButton:addEventListener( "touch", Mute)
     end
 
 end -- function scene:show( event )
@@ -204,8 +236,7 @@ function scene:hide( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-
-
+    
     -----------------------------------------------------------------------------------------
 
     local phase = event.phase
@@ -216,12 +247,15 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        audio.stop(bkgSoundChannel)
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-                -- stop the bkg sound channel for this screen
+        -- stop the bkg sound channel for this screen
         audio.stop(bkgSoundChannel)
+        -- called iediately after scene goes off screen.
+        muteButton:removeEventListener("touch", Mute)
 
     end
 

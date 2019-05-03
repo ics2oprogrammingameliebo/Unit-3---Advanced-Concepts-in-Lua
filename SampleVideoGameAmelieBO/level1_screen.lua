@@ -25,12 +25,19 @@ sceneName = "level1_screen"
 local scene = composer.newScene( sceneName )
 
 -----------------------------------------------------------------------------------------
+-- GLOBAL VARIABLES
+-----------------------------------------------------------------------------------------
+SoundOn = true
+
+-----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
 -- The local variables for this scene
 local bkg_image
 local backButton
+local muteButton
+local unmuteButtton
 
 -----------------------------------------------------------------------------------------
 -- SOUNDS
@@ -46,6 +53,20 @@ local bkgSoundChannel
 -- Creating Transitioning Function back to main menu
 local function BackTransition( )
     composer.gotoScene( "main_menu", {effect = "fade", time = 500})
+end
+
+-----------------------------------------------------------------------------------------
+    local function Mute(touch)
+     if (touch.phase == "ended") then
+     -- pause the sound
+     audio.pause(bkgSound)
+     -- set the boolean variable to be false (sound is now muted)
+     soundOn = false
+     -- hide the mute
+     muteButton.isVisible = false
+     -- make the unmute button visible
+     unmuteButton.isVisible = true
+ end
 end
 
 -----------------------------------------------------------------------------------------
@@ -98,7 +119,19 @@ function scene:create( event )
         -- Setting Functional Properties
         onRelease = BackTransition
 
-    } )   
+    } )  
+
+-------------------------------------------------------------------------------
+-- Object creation for mute button
+muteButton = display.newImageRect("Images/unmuteButtonPressedAmelieBo@2x .png", 100, 100)
+muteButton.x = display.contentWidth*1/10
+muteButton.y = display.contentHeight*9/10 
+muteButton.isVisible = true
+
+unmuteButton = display.newImageRect("Images/muteButtonUnpressedAmelieBo@2x .png", 100, 100)
+unmuteButton.x = display.contentWidth*1/10
+unmuteButton.y = display.contentHeight*9/10
+unmuteButton.isVisible = true 
 
     -----------------------------------------------------------------------------------------
 
@@ -106,6 +139,7 @@ function scene:create( event )
     sceneGroup:insert( backButton )
     
 end --function scene:create( event )
+
 
 -----------------------------------------------------------------------------------------
 
@@ -132,7 +166,8 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
         -- start the main menu screen music
-        bkgSoundChannel= audio.play( bkgSound, { channel=2, loops=-1} )
+        bkgSoundChannel = audio.play( bkgSound, { channel=2, loops=-1} )
+        muteButton:addEventListener( "touch", Mute)
 
     end
 
@@ -160,6 +195,8 @@ function scene:hide( event )
         -- Called immediately after scene goes off screen.
         -- stop the rocket sound channel for this screen
         audio.stop(bkgSoundChannel)
+        -- called iediately after scene goes off screen.
+        muteButton:removeEventListener("touch", Mute)
 
     end
 

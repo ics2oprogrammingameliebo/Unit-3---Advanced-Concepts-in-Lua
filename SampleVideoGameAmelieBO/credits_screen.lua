@@ -24,10 +24,17 @@ sceneName = "credits_screen"
 scene = composer.newScene( sceneName ) -- This function doesn't accept a string, only a variable containing a string
 
 -----------------------------------------------------------------------------------------
+-- GLOBAL VARIABLES
+-----------------------------------------------------------------------------------------
+SoundOn = true
+
+-----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 local bkg_image
 local backButton
+local muteButton
+local unmuteButtton
 
 -----------------------------------------------------------------------------------------
 -- SOUNDS
@@ -45,6 +52,19 @@ local function BackTransition( )
     composer.gotoScene( "main_menu", {effect = "fade", time = 500})
 end
 
+-----------------------------------------------------------------------------------------
+    local function Mute(touch)
+     if (touch.phase == "ended") then
+     -- pause the sound
+     audio.pause(bkgSound)
+     -- set the boolean variable to be false (sound is now muted)
+     soundOn = false
+     -- hide the mute
+     muteButton.isVisible = false
+     -- make the unmute button visible
+     unmuteButton.isVisible = true
+ end
+end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -99,6 +119,19 @@ function scene:create( event )
 
     } )
 
+-------------------------------------------------------------------------------
+-- Object creation for mute button
+muteButton = display.newImageRect("Images/unmuteButtonPressedAmelieBo@2x .png", 100, 100)
+muteButton.x = display.contentWidth*1/10
+muteButton.y = display.contentHeight*9/10 
+muteButton.isVisible = true
+
+unmuteButton = display.newImageRect("Images/muteButtonUnpressedAmelieBo@2x .png", 100, 100)
+unmuteButton.x = display.contentWidth*1/10
+unmuteButton.y = display.contentHeight*9/10
+unmuteButton.isVisible = true 
+
+
     -----------------------------------------------------------------------------------------
 
     -- Associating Buttons with this scene
@@ -130,7 +163,8 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
         -- start the credits screen music
-        bkgSoundChannel= audio.play( bkgSound, { channel=4, loops=-1} )   
+        bkgSoundChannel = audio.play( bkgSound, { channel=4, loops=-1} ) 
+        muteButton:addEventListener( "touch", Mute)  
     end
 
 end -- function scene:show( event )
@@ -161,6 +195,8 @@ function scene:hide( event )
 
         -- stop the rocket sound channel for this screen
         audio.stop(bkgSoundChannel)
+        -- called iediately after scene goes off screen.
+        muteButton:removeEventListener("touch", Mute)
     end
 
 end --function scene:hide( event )
