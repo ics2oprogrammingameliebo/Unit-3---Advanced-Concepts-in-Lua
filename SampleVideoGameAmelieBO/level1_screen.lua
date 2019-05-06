@@ -69,6 +69,19 @@ end
  end
 end
 
+    local function Unmute(touch)
+     if (touch.phase == "ended") then
+     -- pause the sound
+     audio.play(bkgSound)
+     -- set the boolean variable to be false (sound is now muted)
+     soundOn = true
+     -- hide the mute
+     muteButton.isVisible = true
+     -- make the unmute button visible
+     unmuteButton.isVisible = false
+ end
+end
+
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -137,6 +150,8 @@ unmuteButton.isVisible = true
 
     -- Associating Buttons with this scene
     sceneGroup:insert( backButton )
+    sceneGroup:insert( muteButton )
+    sceneGroup:insert( unmuteButton )
     
 end --function scene:create( event )
 
@@ -168,7 +183,7 @@ function scene:show( event )
         -- start the main menu screen music
         bkgSoundChannel = audio.play( bkgSound, { channel=2, loops=-1} )
         muteButton:addEventListener( "touch", Mute)
-
+        unmuteButton:addEventListener( "touch", Unmute)
     end
 
 end --function scene:show( event )
@@ -189,15 +204,14 @@ function scene:hide( event )
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
 
+        audio.stop(bkgSoundChannel)
+
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- Called immediately after scene goes off screen.
-        -- stop the rocket sound channel for this screen
-        audio.stop(bkgSoundChannel)
         -- called iediately after scene goes off screen.
         muteButton:removeEventListener("touch", Mute)
-
+        unmuteButton:removeEventListener("touch", Unmute)
     end
 
 end --function scene:hide( event )

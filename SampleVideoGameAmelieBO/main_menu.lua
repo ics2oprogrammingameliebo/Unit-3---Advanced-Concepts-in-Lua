@@ -87,6 +87,18 @@ end
      unmuteButton.isVisible = true
  end
 end
+    local function Unmute(touch)
+     if (touch.phase == "ended") then
+     -- pause the sound
+     audio.play(bkgSound)
+     -- set the boolean variable to be false (sound is now muted)
+     soundOn = true
+     -- hide the mute
+     muteButton.isVisible = true
+     -- make the unmute button visible
+     unmuteButton.isVisible = false
+ end
+end
 
 
 -----------------------------------------------------------------------------------------
@@ -195,6 +207,8 @@ unmuteButton.isVisible = true
     sceneGroup:insert( playButton )
     sceneGroup:insert( creditsButton )
     sceneGroup:insert( instructionsButton )
+    sceneGroup:insert( muteButton )
+    sceneGroup:insert( unmuteButton )
 
 end -- function scene:create( event )   
 
@@ -225,6 +239,7 @@ function scene:show( event )
         -- start the main menu screen music
         bkgSoundChannel = audio.play( bkgSound, { channel=1, loops=-1} )
         muteButton:addEventListener( "touch", Mute)
+        unmuteButton:addEventListener( "touch", Unmute)
     end
 
 end -- function scene:show( event )
@@ -252,12 +267,11 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- stop the bkg sound channel for this screen
-        audio.stop(bkgSoundChannel)
         -- called iediately after scene goes off screen.
         muteButton:removeEventListener("touch", Mute)
-
+        unmuteButton:removeEventListener("touch", Unmute)
     end
+
 
 end -- function scene:hide( event )
 

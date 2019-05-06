@@ -66,6 +66,19 @@ end
  end
 end
 
+    local function Unmute(touch)
+     if (touch.phase == "ended") then
+     -- pause the sound
+     audio.play(bkgSound)
+     -- set the boolean variable to be false (sound is now muted)
+     soundOn = true
+     -- hide the mute
+     muteButton.isVisible = true
+     -- make the unmute button visible
+     unmuteButton.isVisible = false
+ end
+end
+
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -81,7 +94,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg_image = display.newImageRect("Images/Credits Screen.png", display.contentWidth, display.contentHeight)
+    bkg_image = display.newImageRect("Images/CreditsScreenCampbellW.png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -131,11 +144,12 @@ unmuteButton.x = display.contentWidth*1/10
 unmuteButton.y = display.contentHeight*9/10
 unmuteButton.isVisible = true 
 
-
     -----------------------------------------------------------------------------------------
 
     -- Associating Buttons with this scene
     sceneGroup:insert( backButton )
+    sceneGroup:insert( muteButton )
+    sceneGroup:insert( unmuteButton )
     
 end --function scene:create( event )
 
@@ -164,9 +178,9 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
         -- start the credits screen music
         bkgSoundChannel = audio.play( bkgSound, { channel=4, loops=-1} ) 
-        muteButton:addEventListener( "touch", Mute)  
+        muteButton:addEventListener( "touch", Mute) 
+        unmuteButton:addEventListener( "touch", Unmute)
     end
-
 end -- function scene:show( event )
 
 -----------------------------------------------------------------------------------------
@@ -187,16 +201,15 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        -- stop the rocket sound channel for this screen
+        audio.stop(bkgSoundChannel)
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- Called immediately after scene goes off screen.
-
-        -- stop the rocket sound channel for this screen
-        audio.stop(bkgSoundChannel)
         -- called iediately after scene goes off screen.
         muteButton:removeEventListener("touch", Mute)
+        unmuteButton:removeEventListener("touch", Unmute)
     end
 
 end --function scene:hide( event )
