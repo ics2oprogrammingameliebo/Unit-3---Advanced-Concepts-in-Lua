@@ -39,6 +39,18 @@ local backButton
 local muteButton
 local unmuteButtton
 
+-- the variables that will hold the correct answer and the wrong answers
+local answer 
+local wrongAnswer1
+local wrongAnswer2
+local wrongAnswer3
+
+local questionTextObject
+local answerTextObject 
+local wrongAnswer1TextObject
+local wrongAnswer2TextObject
+local wrongAnswer3TextObject
+
 -----------------------------------------------------------------------------------------
 -- SOUNDS
 -----------------------------------------------------------------------------------------
@@ -81,6 +93,49 @@ end
      unmuteButton.isVisible = false
  end
 end
+----------------------------------------------------------------------------------------
+-- code for level 1
+local function DetermineAnswers()
+    -- calculate the correct answer as well as the wrong answers
+    answer = planets
+    wrongAnswer1 = plainets
+    wrongAnswer2 = plenets
+    wrongAnswer3 = planeits
+end
+
+-- Function that changes the answers for a new question and places them randomly in one of the positions
+local function DisplayAnswers( )
+
+    local answerPosition = math.random(1,3)
+    answerTextObject.text = tostring( answer )
+    wrongAnswer1TextObject.text = tostring( wrongAnswer1 )
+    wrongAnswer2TextObject.text = tostring( wrongAnswer2 )
+    wrongAnswer3TextObject.text = tostring( wrongAnswer3 )
+
+    if (answerPosition == 1) then                
+        
+        answerTextObject.x = display.contentWidth*.3        
+        wrongAnswer1TextObject.x = display.contentWidth*.2
+        wrongAnswer2TextObject.x = display.contentWidth*.1 
+        wrongAnswer3TextObject.x = display.contentWidth*.4 
+
+    elseif (answerPosition == 2) then
+       
+        answerTextObject.x = display.contentWidth*.2        
+        wrongAnswer1TextObject.x = display.contentWidth*.1
+        wrongAnswer2TextObject.x = display.contentWidth*.4 
+        wrongAnswer3TextObject.x = display.contentWidth*.3
+
+    else
+       
+        answerTextObject.x = display.contentWidth*.1        
+        wrongAnswer1TextObject.x = display.contentWidth*.2
+        wrongAnswer2TextObject.x = display.contentWidth*.3
+        wrongAnswer3TextObject.x = display.contentWidth*.4
+    end
+
+end
+
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -135,7 +190,9 @@ function scene:create( event )
     } )  
 
 -------------------------------------------------------------------------------
--- Object creation for mute button
+-- OBJECT CREATION
+-------------------------------------------------------------------------------
+-- create image object for mute and unmute buttons
 muteButton = display.newImageRect("Images/unmuteButtonPressedAmelieBo@2x .png", 100, 100)
 muteButton.x = display.contentWidth*1/10
 muteButton.y = display.contentHeight*9/10 
@@ -144,7 +201,16 @@ muteButton.isVisible = true
 unmuteButton = display.newImageRect("Images/muteButtonUnpressedAmelieBo@2x .png", 100, 100)
 unmuteButton.x = display.contentWidth*1/10
 unmuteButton.y = display.contentHeight*9/10
-unmuteButton.isVisible = true 
+unmuteButton.isVisible = true
+
+ -- create the text object that will hold the correct answer and the wrong answers for question 1
+ questionTextObject = display.newText("There are eight planits in our solar system", display.contentWidth*.5, display.contentHeight/4, nil, 50 )
+ answerTextObject = display.newText("planets", display.contentWidth*.6, display.contentHeight/2.6, nil, 50 )
+ wrongAnswer1TextObject = display.newText("plainets", display.contentWidth*.3, display.contentHeight/2.6, nil, 50 )
+ wrongAnswer2TextObject = display.newText("plenets", display.contentWidth*.6, display.contentHeight/2, nil, 50 )
+ wrongAnswer3TextObject = display.newText("planeits", display.contentWidth*.3, display.contentHeight/2, nil, 50 )
+ numberCorrectText = display.newText("", display.contentWidth*4/5, display.contentHeight*6/7, nil, 25)
+
 
     -----------------------------------------------------------------------------------------
 
@@ -203,7 +269,11 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-
+        answerTextObject.isVisible = false
+        wrongAnswer1TextObject.isVisible = false
+        wrongAnswer2TextObject.isVisble = false
+        wrongAnswer3TextObject.isVisible = false
+        questionTextObject.isVisble = false
         audio.stop(bkgSoundChannel)
 
     -----------------------------------------------------------------------------------------
