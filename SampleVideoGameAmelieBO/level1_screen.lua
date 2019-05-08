@@ -39,18 +39,6 @@ local backButton
 local muteButton
 local unmuteButtton
 
--- the variables that will hold the correct answer and the wrong answers
-local answer 
-local wrongAnswer1
-local wrongAnswer2
-local wrongAnswer3
-
-local questionTextObject
-local answerTextObject 
-local wrongAnswer1TextObject
-local wrongAnswer2TextObject
-local wrongAnswer3TextObject
-
 -----------------------------------------------------------------------------------------
 -- SOUNDS
 -----------------------------------------------------------------------------------------
@@ -68,74 +56,35 @@ local function BackTransition( )
 end
 
 -----------------------------------------------------------------------------------------
-    local function Mute(touch)
-     if (touch.phase == "ended") then
-     -- pause the sound
-     audio.pause(bkgSound)
-     -- set the boolean variable to be false (sound is now muted)
-     soundOn = false
-     -- hide the mute
-     muteButton.isVisible = false
-     -- make the unmute button visible
-     unmuteButton.isVisible = true
- end
-end
-
-    local function Unmute(touch)
-     if (touch.phase == "ended") then
-     -- pause the sound
-     audio.play(bkgSound)
-     -- set the boolean variable to be false (sound is now muted)
-     soundOn = true
-     -- hide the mute
-     muteButton.isVisible = true
-     -- make the unmute button visible
-     unmuteButton.isVisible = false
- end
-end
-----------------------------------------------------------------------------------------
--- code for level 1
-local function DetermineAnswers()
-    -- calculate the correct answer as well as the wrong answers
-    answer = planets
-    wrongAnswer1 = plainets
-    wrongAnswer2 = plenets
-    wrongAnswer3 = planeits
-end
-
--- Function that changes the answers for a new question and places them randomly in one of the positions
-local function DisplayAnswers( )
-
-    local answerPosition = math.random(1,3)
-    answerTextObject.text = tostring( answer )
-    wrongAnswer1TextObject.text = tostring( wrongAnswer1 )
-    wrongAnswer2TextObject.text = tostring( wrongAnswer2 )
-    wrongAnswer3TextObject.text = tostring( wrongAnswer3 )
-
-    if (answerPosition == 1) then                
-        
-        answerTextObject.x = display.contentWidth*.3        
-        wrongAnswer1TextObject.x = display.contentWidth*.2
-        wrongAnswer2TextObject.x = display.contentWidth*.1 
-        wrongAnswer3TextObject.x = display.contentWidth*.4 
-
-    elseif (answerPosition == 2) then
-       
-        answerTextObject.x = display.contentWidth*.2        
-        wrongAnswer1TextObject.x = display.contentWidth*.1
-        wrongAnswer2TextObject.x = display.contentWidth*.4 
-        wrongAnswer3TextObject.x = display.contentWidth*.3
-
-    else
-       
-        answerTextObject.x = display.contentWidth*.1        
-        wrongAnswer1TextObject.x = display.contentWidth*.2
-        wrongAnswer2TextObject.x = display.contentWidth*.3
-        wrongAnswer3TextObject.x = display.contentWidth*.4
+local function Mute(touch)
+    if (touch.phase == "ended") then
+        -- pause the sound
+        audio.pause(bkgSound)
+        -- set the boolean variable to be false (sound is now muted)
+        soundOn = false
+        -- hide the mute
+        muteButton.isVisible = false
+        -- make the unmute button visible
+        unmuteButton.isVisible = true
     end
-
 end
 
+local function Unmute(touch)
+    if (touch.phase == "ended") then
+        -- pause the sound
+        audio.play(bkgSound)
+        -- set the boolean variable to be false (sound is now muted)
+        soundOn = true
+        -- hide the mute
+        muteButton.isVisible = true
+        -- make the unmute button visible
+        unmuteButton.isVisible = false
+    end
+end
+
+local function AskQuestion()
+    
+end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -203,16 +152,7 @@ unmuteButton.x = display.contentWidth*1/10
 unmuteButton.y = display.contentHeight*9/10
 unmuteButton.isVisible = true
 
- -- create the text object that will hold the correct answer and the wrong answers for question 1
- questionTextObject = display.newText("There are eight planits in our solar system", display.contentWidth*.5, display.contentHeight/4, nil, 50 )
- answerTextObject = display.newText("planets", display.contentWidth*.6, display.contentHeight/2.6, nil, 50 )
- wrongAnswer1TextObject = display.newText("plainets", display.contentWidth*.3, display.contentHeight/2.6, nil, 50 )
- wrongAnswer2TextObject = display.newText("plenets", display.contentWidth*.6, display.contentHeight/2, nil, 50 )
- wrongAnswer3TextObject = display.newText("planeits", display.contentWidth*.3, display.contentHeight/2, nil, 50 )
- numberCorrectText = display.newText("", display.contentWidth*4/5, display.contentHeight*6/7, nil, 25)
-
-
-    -----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 
     -- Associating Buttons with this scene
     sceneGroup:insert( backButton )
@@ -250,6 +190,7 @@ function scene:show( event )
         bkgSoundChannel = audio.play( bkgSound, { channel=2, loops=-1} )
         muteButton:addEventListener( "touch", Mute)
         unmuteButton:addEventListener( "touch", Unmute)
+        AskQuestion()
     end
 
 end --function scene:show( event )
@@ -269,11 +210,6 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-        answerTextObject.isVisible = false
-        wrongAnswer1TextObject.isVisible = false
-        wrongAnswer2TextObject.isVisble = false
-        wrongAnswer3TextObject.isVisible = false
-        questionTextObject.isVisble = false
         audio.stop(bkgSoundChannel)
 
     -----------------------------------------------------------------------------------------
