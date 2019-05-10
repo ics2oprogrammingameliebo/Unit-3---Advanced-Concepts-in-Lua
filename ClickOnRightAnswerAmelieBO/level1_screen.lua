@@ -130,7 +130,6 @@ local function DisplayAnswers( )
         wrongAnswer2TextObject.x = display.contentWidth*.3
         wrongAnswer3TextObject.x = display.contentWidth*.4
     end
-
 end
 
 -- Function that transitions to Lose Screen
