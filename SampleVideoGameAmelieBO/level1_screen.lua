@@ -132,31 +132,42 @@ local function DisplayRandomAnswers()
 
     if (answerPosition == 1) then                
         
-        correctAnswer.x = display.contentWidth*.3        
-        wrongAnswer1.x = display.contentWidth*.2
-        wrongAnswer2.x = display.contentWidth*.1 
+        correctAnswer.x = 600
+        correctAnswer.y = 300      
+        wrongAnswer1.x = 400 
+        wrongAnswer1.y = 235
+        wrongAnswer2.x = 600 
+        wrongAnswer2.y = 235
         wrongAnswer3.x = display.contentWidth*.4 
 
     elseif (answerPosition == 2) then
        
         correctAnswer.x = display.contentWidth*.2        
-        wrongAnswer1.x = display.contentWidth*.1
-        wrongAnswer2.x = display.contentWidth*.4 
-        wrongAnswer3.x = display.contentWidth*.3
+        wrongAnswer1.x = 600
+        wrongAnswer1.y = 300
+        wrongAnswer2.x = 400
+        wrongAnswer2.x = 235
+        wrongAnswer3.x = 600
+        wrongAnswer3.y = 235
 
     elseif (answerPosition == 3) then
        
         correctAnswer.x = display.contentWidth*.1        
         wrongAnswer1.x = display.contentWidth*.2
-        wrongAnswer2.x = display.contentWidth*.3
-        wrongAnswer3.x = display.contentWidth*.4
+        wrongAnswer2.x = 600
+        wrongAnswer2.y = 300
+        wrongAnswer3.x = 400
+        wrongAnswer3.y = 235
 
     else 
        
-        correctAnswer.x = display.contentWidth*.4        
+        correctAnswer.x = 400  
+        correctAnswer.y = 235    
         wrongAnswer1.x = display.contentWidth*.1
-        wrongAnswer2.x = display.contentWidth*.2
-        wrongAnswer3.x = display.contentWidth*.3
+        wrongAnswer2.x = 
+        wrongAnswer2.y = 
+        wrongAnswer3.x = 600
+        wrongAnswer3.y = 300
     end
 end
 
